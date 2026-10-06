@@ -126,7 +126,10 @@ func WithMasterLabel() func(*corev1.Node) {
 		if node.Labels == nil {
 			node.Labels = map[string]string{}
 		}
+		// Add both labels for backwards compatibility.
+		// Kubernetes 1.20+ uses "control-plane" as the standard label.
 		node.Labels["node-role.kubernetes.io/master"] = ""
+		node.Labels["node-role.kubernetes.io/control-plane"] = ""
 	}
 }
 
